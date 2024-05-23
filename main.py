@@ -11,6 +11,11 @@ from skimage.color import label2rgb
 
 
 def process_image(im, image_name):
+    # Check if image has an alpha channel (transparency)
+    if im.shape[2] == 4:
+        # If yes, remove the alpha channel
+        im = im[:, :, :3]
+    
     # Canny edge detection
     grayscale = rgb2gray(im)
     edges = canny(grayscale)
